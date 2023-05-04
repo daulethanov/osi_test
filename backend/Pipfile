@@ -20,6 +20,7 @@ flask-cors = "*"
 gunicorn = "*"
 flask-socketio = "*"
 flask-admin = "*"
+flask-migrate = "*"
 
 [dev-packages]
 

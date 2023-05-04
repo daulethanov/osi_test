@@ -32,9 +32,12 @@ class User(db.Model, UserMixin):
     reset_password_code = db.Column(db.Integer())
     roles = db.relationship('Role', secondary='roles_users', backref=db.backref('users', lazy='dynamic'))
     problem = db.relationship('Problem', backref=db.backref('users'))
+    city = db.Column(db.Integer(), db.ForeignKey('city.id'))
+    street = db.Column(db.Integer(), db.ForeignKey('street.id'))
+    home = db.Column(db.Integer(), db.ForeignKey('home.id'))
 
     def __repr__(self):
-        return self.first_name
+        return self.email
 
     def password_hash(password):
         return generate_password_hash(password)
