@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+flask-sqlalchemy = "*"
+psycopg2-binary = "*"
+flask-env = "*"
+python-dotenv = "*"
+flask-security = "*"
+pytz = "*"
+flask-jwt-extended = "*"
+email-validator = "*"
+marshmallow = "*"
+flask-uploads = "*"
+flask-mail = "*"
+flask-cors = "*"
+gunicorn = "*"
+flask-socketio = "*"
+flask-admin = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
+python_full_version = "3.10.7"
