@@ -18,7 +18,6 @@ def create_app():
     security = Security(app)
     mail.init_app(app)
     admin.init_app(app)
-
     JWTManager(app)
     cors = CORS(app, resources={r"*": {"origins": "*"}})
     with app.app_context():
