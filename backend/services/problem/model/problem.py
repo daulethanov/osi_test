@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from services.client.model import db
 from services.problem.model import ActJob
 

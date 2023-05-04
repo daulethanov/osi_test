@@ -29,4 +29,7 @@ def create_problem():
 
 @problems.route('/list', methods=["GET"])
 def list_problem():
-    pass
+    problem = Problem.query.filter_by
+
+
+
