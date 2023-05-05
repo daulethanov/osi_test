@@ -14,7 +14,7 @@ class Problem(db.Model):
     finish = db.Column(db.DateTime())
     completed = db.Column(db.Boolean(), default=0)
     act_job = db.Column(db.Enum(ActJob), default=ActJob.pending)
-    file = db.Column(db.LargeBinary)
+    file = db.Column(db.LargeBinary, nullable=True)
     rating = db.relationship('Rating', backref='problem')
 
     def create_problem(self, problem):

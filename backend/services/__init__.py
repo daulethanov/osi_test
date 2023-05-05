@@ -10,7 +10,7 @@ from services.client.model import db
 from services.client.view.auth import auth
 from services.problem.view.problem import problems
 
-migrate = Migrate(command='migrate', )
+migrate = Migrate(command='migrate')
 
 
 def create_app():
