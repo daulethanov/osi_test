@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_cors import CORS
+# from flask_cors import CORS
 from flask_security import Security
 from flask_migrate import Migrate
 from flask_uploads import configure_uploads
@@ -14,7 +14,6 @@ from services.problem.view.problem import problems, photos
 
 migrate = Migrate(command='migrate')
 
-
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -28,8 +27,8 @@ def create_app():
     mail.init_app(app)
     admin.init_app(app)
     JWTManager(app)
-    CORS(app, resources={r"*": {"origins": "*"}})
     app.register_blueprint(auth)
     app.register_blueprint(problems)
+    # Cors(app, resources={r"*": {"origins": "*"}})
 
     return app
