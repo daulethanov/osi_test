@@ -1,21 +1,24 @@
 from datetime import datetime
 from services.client.model import db
-from services.problem.model import ActJob
+from services.problem.model import ActJob, LevelProblem
 
 
 class Problem(db.Model):
     __tablename__ = 'problem'
 
     id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    # user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    number = db.Column(db.Integer())
+    telegram_name = db.Column(db.String())
     title = db.Column(db.Text())
     description = db.Column(db.Text())
     create_at = db.Column(db.DateTime(), default=datetime.now())
     finish = db.Column(db.DateTime())
     completed = db.Column(db.Boolean(), default=0)
     act_job = db.Column(db.Enum(ActJob), default=ActJob.pending)
-    file = db.Column(db.LargeBinary, nullable=True)
-    rating = db.relationship('Rating', backref='problem')
+    level_problem = db.Column(db.Enum(LevelProblem), default=LevelProblem.minimal)
+    file = db.Column(db.String, nullable=True)
+    # rating = db.relationship('Rating', backref='problem')
 
     def create_problem(self, problem):
         db.session.add(problem)

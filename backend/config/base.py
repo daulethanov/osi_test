@@ -2,6 +2,8 @@ import os
 from datetime import timedelta
 from os import getenv
 
+from flask_uploads import IMAGES
+
 
 class Config:
     SECRET_KEY = getenv('SECRET_KEY')
@@ -19,3 +21,9 @@ class Config:
     MAIL_USERNAME = 'aliz1233773@gmail.com'
     MAIL_PASSWORD = 'rqqkbhzwhmqesfcx'
     MAIL_DEFAULT_SENDER = 'aliz1233773@gmail.com'
+
+    PHOTOS_FOLDER = 'uploads/problem'
+    ALLOWED_IMAGES = IMAGES
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16 MB
+    UPLOADED_PHOTOS_DEST = os.path.abspath(PHOTOS_FOLDER)
+    # UPLOADS_DEFAULT_URL = 'http://localhost:5000/' + PHOTOS_FOLDER + '/'

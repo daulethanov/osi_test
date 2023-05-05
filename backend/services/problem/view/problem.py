@@ -1,32 +1,40 @@
 import os
 from flask import Blueprint, request, jsonify
-from marshmallow import ValidationError
+from flask_uploads import UploadSet, IMAGES
 from werkzeug.utils import secure_filename
+from services.problem.model import ActJob, LevelProblem
 from services.problem.model.problem import Problem
 from services.problem.shema.problem import ProblemSchema
+from services.problem.view import allowed_file
+
+photos = UploadSet('photos', IMAGES)
 
 problems = Blueprint('problems', __name__, url_prefix='/api/v1/problem')
 
 
 @problems.route('/create', methods=['POST'])
 def create_problem():
-    try:
-        data = ProblemSchema().load(request.form)
-        file = request.files['file']
-        if not file:
-            return {'message': 'No file uploaded'}, 400
-        from runserver import app
+    file = request.files.get('file')
 
+    # Проверка наличия файла и его расширения
+    if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        with app.app_context():
-            data['file'] = filename  # добавляем имя файла в данные
-            problem = Problem(**data)
-            problem.create_problem(problem)
+        file_path = photos.save(file)
 
-        return jsonify({'message': 'Problem created successfully'}), 201
-    except ValidationError as err:
-        return jsonify({'error': err.messages}), 400
+        # Создание новой задачи с файлом
+        problem = Problem(
+            number=request.form.get('number'),
+            telegram_name=request.form.get('telegram_name'),
+            title=request.form.get('title'),
+            description=request.form.get('description'),
+            level_problem=request.form.get('level_problem', LevelProblem.minimal),
+            file=file_path
+        )
+
+        problem.create_problem(problem)
+        return {'message': 'File uploaded successfully'}
+
+    return {'message': 'File upload failed'}, 400
 
 
 @problems.route('/list', methods=["GET"])

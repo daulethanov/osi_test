@@ -6,7 +6,9 @@ from services.problem.model import ActJob
 
 class ProblemSchema(Schema):
     id = f.Integer(dump_only=True)
-    user_id = f.Nested(UserSchema(dump_only=('id', 'first_name', 'last_name', 'number'), many=True))
+    # user_id = f.Nested(UserSchema(dump_only=('id', 'first_name', 'last_name', 'number'), many=True))
+    telegram_name = f.String()
+    number = f.Integer()
     title = f.String()
     description = f.String()
     create_at = f.DateTime(default=datetime.now, dump_only=True)

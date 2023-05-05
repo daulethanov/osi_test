@@ -21,6 +21,7 @@ gunicorn = "*"
 flask-socketio = "*"
 flask-admin = "*"
 flask-migrate = "*"
+werkzeug = "*"
 
 [dev-packages]
 
