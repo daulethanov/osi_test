@@ -1,13 +1,15 @@
 FROM python:3.10.7
 
 RUN pip install pipenv
-WORKDIR /OSI
+WORKDIR /backend
 
 COPY Pipfile Pipfile.lock ./
 
 RUN pipenv install --dev --system --deploy
 
 COPY . .
+CMD flask run
+#CMD gunicorn --bind 0.0.0.0:5000 runserver:app
 
-CMD gunicorn --bind 0.0.0.0:5000 runserver:app
+
 

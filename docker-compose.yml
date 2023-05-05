@@ -1,18 +1,18 @@
 version: "3"
 
 services:
-  flask:
 
+  flask:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "5000"
     env_file:
-      - .env
+      - backend/.env
 
   nginx:
-    build: ./nginx
+    build: backend/nginx
     depends_on:
       - flask
     ports:
@@ -28,3 +28,9 @@ services:
     ports:
       - "5432:5432"
 
+  react:
+      build:
+        context: ./frontend
+        dockerfile: Dockerfile
+      ports:
+        - "3000:3000"

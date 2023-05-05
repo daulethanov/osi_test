@@ -22,6 +22,7 @@ flask-socketio = "*"
 flask-admin = "*"
 flask-migrate = "*"
 werkzeug = "*"
+flask-reuploaded = "*"
 
 [dev-packages]
 
