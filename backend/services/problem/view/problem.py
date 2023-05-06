@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify
 from flask_uploads import UploadSet, IMAGES
 from werkzeug.utils import secure_filename
 from services.problem.model import ActJob, LevelProblem
-from services.problem.model.problem import Problem
+from services.problem.model.problem import Problem, db
 from services.problem.shema.problem import ProblemSchema
 from services.problem.view import allowed_file
 
@@ -16,7 +16,6 @@ problems = Blueprint('problems', __name__, url_prefix='/api/v1/problem')
 def create_problem():
     file = request.files.get('file')
 
-    # Проверка наличия файла и его расширения
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file_path = photos.save(file)
@@ -42,6 +41,17 @@ def list_problem():
     problems = Problem.query.all()
     problem_schema = ProblemSchema(many=True)
     return jsonify(problem_schema.dump(problems))
+
+
+@problems.route('/edit/<int:id>', methods=["PUT"])
+def edit_problem(id):
+    problem = Problem.query.filter_by(id=id).first()
+    data = ProblemSchema(only=("id", "act_job",)).load(request.json)
+    if not problem:
+        return jsonify({'message': 'Problem not found'}), 404
+    problem.act_job = data["act_job"]
+    db.session.commit()
+    return ProblemSchema().dump(problem)
 
 
 
