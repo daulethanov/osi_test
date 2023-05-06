@@ -1,8 +1,7 @@
-import os
 from flask import Blueprint, request, jsonify
 from flask_uploads import UploadSet, IMAGES
 from werkzeug.utils import secure_filename
-from services.problem.model import ActJob, LevelProblem
+from services.problem.model import LevelProblem
 from services.problem.model.problem import Problem, db
 from services.problem.shema.problem import ProblemSchema
 from services.problem.view import allowed_file
