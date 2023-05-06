@@ -5,8 +5,10 @@ from services.client.model import db
 from .view import UserAdminView, ProblemView
 from flask_admin.contrib.sqla import ModelView
 from services.address.model import City, Street, Home
+from .auth_admin import MyAdminView
 
-admin = Admin(name="OSI", template_mode="bootstrap3")
+
+admin = Admin(name="OSI", template_mode="bootstrap3", index_view=MyAdminView())
 
 
 admin.add_view(UserAdminView(User, db.session))

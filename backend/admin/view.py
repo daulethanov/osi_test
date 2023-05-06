@@ -6,7 +6,6 @@ from werkzeug.utils import secure_filename
 from wtforms.fields import FileField
 
 
-
 class ProblemView(ModelView):
     column_list = ['id', 'create_at', 'users']
     form_overrides = dict(file=FileField)
@@ -16,8 +15,6 @@ class ProblemView(ModelView):
     form_extra_fields = {
         'file': FileUploadField('Image')
     }
-    # from runserver import app
-    # base_path = os.path.join(app.config['UPLOAD_FOLDER'])
 
     def on_model_change(self, form, model, is_created):
 
@@ -29,8 +26,7 @@ class ProblemView(ModelView):
             model.file_size = file.tell()
 
 
-
-
 class UserAdminView(ModelView):
     column_hide_backrefs = False
     column_list = ("roles", "city", "home", "street")
+
