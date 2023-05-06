@@ -11,22 +11,24 @@ services:
     env_file:
       - backend/.env
 
+
   nginx:
-    build: backend/nginx
+    build: ./backend/nginx
     depends_on:
       - flask
     ports:
       - "80:80"
 
   database:
-    image: postgres:13.6
-
+    image: postgres:14.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_DB=osi_help
       - POSTGRES_USER=alihan0810
       - POSTGRES_PASSWORD=lexa_ne_lox
     ports:
-      - "5432:5432"
+      - "5433:5433"
 
   react:
       build:
@@ -34,3 +36,6 @@ services:
         dockerfile: Dockerfile
       ports:
         - "3000:3000"
+
+volumes:
+    postgres_data:
