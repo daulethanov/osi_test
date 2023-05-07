@@ -15,7 +15,11 @@ class ProblemSchema(Schema):
     finish = f.DateTime()
     completed = f.Bool(default=0)
     act_job = f.Enum(ActJob, default=ActJob.pending)
-    rating = f.Nested('RatingSchema', dump_only=('id', 'star'), many=True)
+    rating = f.Nested('RatingSchema', dump_only=('id', 'star'), many=True)\
+	name = f.String()
+	surname =f.String()
+	whatsapp = f.Integer()
+	address = f.String()
     file = f.Raw()
 
 

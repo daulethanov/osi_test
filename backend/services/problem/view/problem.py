@@ -26,6 +26,10 @@ def create_problem():
             title=request.form.get('title'),
             description=request.form.get('description'),
             level_problem=request.form.get('level_problem', LevelProblem.minimal),
+            name=request.form.get('title'),
+			surname=request.form.get('title'),
+			whatsapp=request.form.get('title'),
+			address = request.form.get('address')
             file=file_path
         )
 

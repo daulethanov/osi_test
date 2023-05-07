@@ -8,7 +8,7 @@ COPY Pipfile Pipfile.lock ./
 RUN pipenv install --dev --system --deploy
 
 COPY . .
-CMD flask run
+
 CMD gunicorn --bind 0.0.0.0:5000 runserver:app
 
 

@@ -32,7 +32,7 @@ services:
 
   react:
       build:
-        context: ./frontend
+        context: ./frontend/my-app
         dockerfile: Dockerfile
       ports:
         - "3000:3000"

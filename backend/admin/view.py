@@ -7,7 +7,7 @@ from wtforms.fields import FileField
 
 
 class ProblemView(ModelView):
-    column_list = ['id', 'create_at', 'users']
+    column_list = ['id', 'create_at',]
     form_overrides = dict(file=FileField)
     form_args = dict(
         file=dict(validators=[FileRequired()])
