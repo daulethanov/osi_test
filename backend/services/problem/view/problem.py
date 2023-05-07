@@ -13,30 +13,29 @@ problems = Blueprint('problems', __name__, url_prefix='/api/v1/problem')
 
 @problems.route('/create', methods=['POST'])
 def create_problem():
-    file = request.files.get('file')
+    # file = request.files.get('file')
 
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file_path = photos.save(file)
+    # if file and allowed_file(file.filename):
+    #     filename = secure_filename(file.filename)
+    #     file_path = photos.save(file)
 
         # Создание новой задачи с файлом
-        problem = Problem(
-            number=request.form.get('number'),
-            telegram_name=request.form.get('telegram_name'),
-            title=request.form.get('title'),
-            description=request.form.get('description'),
-            level_problem=request.form.get('level_problem', LevelProblem.minimal),
-            name=request.form.get('title'),
-			surname=request.form.get('title'),
-			whatsapp=request.form.get('title'),
-			address = request.form.get('address')
-            file=file_path
-        )
-
-        problem.create_problem(problem)
-        return {'message': 'File uploaded successfully'}
-
-    return {'message': 'File upload failed'}, 400
+    problem = Problem(
+		number=request.form.get('number'),
+		telegram_name=request.form.get('telegram_name'),
+		title=request.form.get('title'),
+		description=request.form.get('description'),
+		# level_problem=request.form.get('level_problem', LevelProblem.minimal),
+		name=request.form.get('name'),
+		surname=request.form.get('surname'),
+		whatsapp=request.form.get('whatsapp'),
+		address = request.form.get('address'),
+		# file=file_path
+	)
+    db.session.add(problem)
+    db.session.commit()
+        # return {'message': 'File uploaded successfully'} 
+    return problem
 
 
 @problems.route('/list', methods=["GET"])

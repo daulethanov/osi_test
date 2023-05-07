@@ -1,5 +1,5 @@
 from flask import Flask
-# from flask_cors import CORS
+from flask_cors import CORS
 from flask_security import Security
 from flask_migrate import Migrate
 from flask_uploads import configure_uploads
@@ -29,6 +29,6 @@ def create_app():
     JWTManager(app)
     app.register_blueprint(auth)
     app.register_blueprint(problems)
-    # Cors(app, resources={r"*": {"origins": "*"}})
+    cors = CORS(app, resources={r"*": {"origins": "*"}})
 
     return app
