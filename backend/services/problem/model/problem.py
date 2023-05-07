@@ -18,10 +18,10 @@ class Problem(db.Model):
     act_job = db.Column(db.Enum(ActJob), default=ActJob.pending)
     level_problem = db.Column(db.Enum(LevelProblem), default=LevelProblem.minimal)
     file = db.Column(db.String, nullable=True)
-names = db.Column(db.String())
-surnames = db.Column(db.String())
-whatsapp = db.Column(db.Integer())
-address = db.Column(db.String())
+    names = db.Column(db.String())
+    surnames = db.Column(db.String())
+    whatsapp = db.Column(db.Integer())
+    address = db.Column(db.String())
 
     def create_problem(self, problem):
         db.session.add(problem)
