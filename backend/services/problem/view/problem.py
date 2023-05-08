@@ -13,29 +13,29 @@ problems = Blueprint('problems', __name__, url_prefix='/api/v1/problem')
 
 @problems.route('/create', methods=['POST'])
 def create_problem():
-    # file = request.files.get('file')
+    try:
+        # Валидация данных запроса
+        data = ProblemSchema().load(request.json)
+    except ValidationError as e:
+        return jsonify({'error': e.messages}), 400
 
-    # if file and allowed_file(file.filename):
-    #     filename = secure_filename(file.filename)
-    #     file_path = photos.save(file)
-
-        # Создание новой задачи с файлом
     problem = Problem(
-		number=request.form.get('number'),
-		telegram_name=request.form.get('telegram_name'),
-		title=request.form.get('title'),
-		description=request.form.get('description'),
-		# level_problem=request.form.get('level_problem', LevelProblem.minimal),
-		name=request.form.get('name'),
-		surname=request.form.get('surname'),
-		whatsapp=request.form.get('whatsapp'),
-		address = request.form.get('address'),
-		# file=file_path
-	)
+        number=data['number'],
+        telegram_name=data['telegram_name'],
+        title=data['title'],
+        description=data['description'],
+        # level_problem=data['level_problem'],
+        name=data['name'],
+        surname=data['surname'],
+        whatsapp=data['whatsapp'],
+        address=data['address'],
+    )
     db.session.add(problem)
     db.session.commit()
-        # return {'message': 'File uploaded successfully'} 
-    return problem
+
+    # Возврат данных созданной проблемы в ответе
+    result = ProblemSchema().dump(problem)
+    return jsonify(result), 201
 
 
 @problems.route('/list', methods=["GET"])

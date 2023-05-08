@@ -1,7 +1,8 @@
 from datetime import datetime
 from marshmallow import Schema, fields as f
 from services.client.shema.user import UserSchema
-from services.problem.model import ActJob
+from services.problem.model import ActJob, LevelProblem
+
 
 
 class ProblemSchema(Schema):
@@ -15,6 +16,7 @@ class ProblemSchema(Schema):
     finish = f.DateTime()
     completed = f.Bool(default=0)
     act_job = f.Enum(ActJob, default=ActJob.pending)
+    level_problem = f.Enum(LevelProblem, default=LevelProblem.minimal)
     rating = f.Nested('RatingSchema', dump_only=('id', 'star'), many=True)
     name = f.String()
     surname =f.String()

@@ -1,0 +1,24 @@
+.applications__item {
+	width: 100%;
+	margin: 15px 0 0 25px;
+}
+
+.applications__item ul {
+	display: flex;
+	gap: 30px;
+}
+
+.applications__item li {
+	width: auto;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	color: #8A8A8A;
+	cursor: pointer;
+	margin: 0;
+}
+
+.applications__item.active {
+	color: black;
+}
+
